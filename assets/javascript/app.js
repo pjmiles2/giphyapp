@@ -1,32 +1,18 @@
 $(document).ready(function(){
 
 
-
+var button;
 var topics = ["Ford","Toyota","BMW","Chevrolet","Volvo","Honda"];
 
+ 
 
 
-function buttons() {
+buttons();
 
-    $("#car-button").empty();
+   
 
-    for (var i=0; i < topics.length; i++) {
+function carGifs() {
 
-
-    var button = $("<button>");
-    button.addClass("car");
-    button.attr("car-make", topics[i]);
-    button.text(topics[i]);
-
-    $("#car-button").append(button);
-    
-
-
-    }
-}
-
-
-$("button").on("click", function() {
     $("#gifs-view").empty();
     var carType = $(this).attr("car-make");
 
@@ -40,6 +26,7 @@ $("button").on("click", function() {
         method: "GET"
       })
       .then(function(response) {
+
         var results = response.data;
 
         for (var i = 0; i < results.length; i++) {
@@ -52,11 +39,11 @@ $("button").on("click", function() {
             var carImage = $("<img>");
 
             var still = images.fixed_height_still.url;
-            var animated = images.fixed_height.url;
+            var moving = images.fixed_height.url;
 
             carImage.attr("src", still);
             carImage.attr("data-still", still);
-            carImage.attr("data-state", "still");
+            carImage.attr("data-animate", moving);
             carImage.addClass("gif");
 
             gifDiv.append(rated);
@@ -65,13 +52,49 @@ $("button").on("click", function() {
             $("#gifs-view").prepend(gifDiv)
           }
     });
- });
+ };
 
-$(".gif").on("click", function() {
+
+
+ $("#add-car").on("click", function(event) {
+   
+    event.preventDefault();        
+    var car = $("#car-make").val().trim();
+    topics.push(car);
+        
+    console.log(topics);  
+    buttons();  
+    });  
+
+function buttons() {
+
+    $("#car-button").empty();
+
+    for (var i=0; i < topics.length; i++) {
+
+
+    button = $("<button>");
+    button.addClass("car");
+    button.attr("car-make", topics[i]);
+    button.text(topics[i]);
+
+    $("#car-button").append(button);
+    
+
+
+    }
+
+ 
+}
+
+  
+
+function moveGifs() {
            
-     
     var state = $(this).attr("data-state");
-        if (state == "still") {
+  
+    var state = $(this).attr("data-state");
+        if (state === "still") {
           $(this).attr("src", $(this).attr("data-animate"));
           $(this).attr("data-state", "moving");            
         }
@@ -80,20 +103,12 @@ $(".gif").on("click", function() {
               $(this).attr("data-state", "still");
             }
     
-    });
+    };
 
 
-$("#add-car").on("click", function(event) {
-   
-    event.preventDefault();        
-    var car = $("#car-make").val().trim();
-    topics.push(car);
-        
-    console.log(topics);  
-    buttons();
-        
-    });        
-    buttons();
+$(document).on("click", ".car", carGifs);
+$(document).on("click", ".gif", moveGifs);
+
 
 
 });
