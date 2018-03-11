@@ -73,7 +73,7 @@ function buttons() {
     for (var i=0; i < topics.length; i++) {
 
 
-    button = $("<button>");
+    button = $("<buttontype='button' class='btn btn-primary'>");
     button.addClass("car");
     button.attr("car-make", topics[i]);
     button.text(topics[i]);
@@ -91,7 +91,7 @@ function buttons() {
 
 function moveGifs() {
            
-    var state = $(this).attr("data-state");
+  //  var state = $(this).attr("data-state");
   
     var state = $(this).attr("data-state");
         if (state === "still") {
@@ -105,9 +105,9 @@ function moveGifs() {
     
     };
 
+$(document).on("click", ".gif", moveGifs);
 
 $(document).on("click", ".car", carGifs);
-$(document).on("click", ".gif", moveGifs);
 
 
 
