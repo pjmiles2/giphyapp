@@ -20,7 +20,7 @@ function buttons() {
 
     button.text(topics[i]);
 
-    $("#car-button").prepend(button);
+    $("#car-button").append(button);
 
 
     }
@@ -44,25 +44,19 @@ buttons();
 
 
 $("button").on("click", function() {
-    // In this case, the "this" keyword refers to the button that was clicked
     var carType = $(this).attr("car-make");
-console.log(carType);
-    // Constructing a URL to search Giphy for the name of the person who said the quote
+    console.log(carType)
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
       carType + "&api_key=6fOVXGhpoNJ0kP6tgH9TwXLuIDHf1C3N&limit=10";
       console.log(queryURL);
 
-    // Performing our AJAX GET request
     $.ajax({
         url: queryURL,
         method: "GET"
       })
-      // After the data comes back from the API
       .then(function(response) {
-        // Storing an array of results in the results variable
         var results = response.data;
 
-        // Looping over every result item
         for (var i = 0; i < results.length; i++) {
 
             var gifDiv = $("<div class='item'>");
@@ -70,12 +64,9 @@ console.log(carType);
 
             carImage.attr("src", results[i].images.fixed_height_still.url);
 
-            // Appending the paragraph and personImage we created to the "gifDiv" div we created
-            //gifDiv.append(p);
             gifDiv.prepend(carImage);
 
-            // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
-            $("#gifs-view").prepend(gifDiv);
+            $("#gifs-view").append(gifDiv).css('display', 'inline');
           }
         
         }
