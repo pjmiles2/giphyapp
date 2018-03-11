@@ -15,36 +15,21 @@ function buttons() {
 
     var button = $("<button>");
     button.addClass("car");
-
     button.attr("car-make", topics[i]);
-
     button.text(topics[i]);
 
     $("#car-button").append(button);
+    
 
 
     }
-};
-buttons();
-
-$("#add-car").on("click", function(event) {
-   
-    event.preventDefault();
-
-    // This line will grab the text from the input box
-    var car = $("#car-make").val().trim();
-    // The movie from the textbox is then added to our array
-    topics.push(car);
-
-console.log(topics);  
-buttons();
-
-});
-
+}
 
 
 $("button").on("click", function() {
+    $("#gifs-view").empty();
     var carType = $(this).attr("car-make");
+
     console.log(carType)
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
       carType + "&api_key=6fOVXGhpoNJ0kP6tgH9TwXLuIDHf1C3N&limit=10";
@@ -59,17 +44,56 @@ $("button").on("click", function() {
 
         for (var i = 0; i < results.length; i++) {
 
+            var rating = results[i].rating;
+            var images = results[i].images;
+
             var gifDiv = $("<div class='item'>");
+            var rated = $("<p>").text("Rating: " + rating);
             var carImage = $("<img>");
 
-            carImage.attr("src", results[i].images.fixed_height_still.url);
+            var still = images.fixed_height_still.url;
+            var animated = images.fixed_height.url;
 
-            gifDiv.prepend(carImage);
+            carImage.attr("src", still);
+            carImage.attr("data-still", still);
+            carImage.attr("data-state", "still");
+            carImage.addClass("gif");
 
-            $("#gifs-view").append(gifDiv).css('display', 'inline');
+            gifDiv.append(rated);
+            gifDiv.append(carImage);
+
+            $("#gifs-view").prepend(gifDiv)
           }
-        
+    });
+ });
+
+$(".gif").on("click", function() {
+           
+     
+    var state = $(this).attr("data-state");
+        if (state == "still") {
+          $(this).attr("src", $(this).attr("data-animate"));
+          $(this).attr("data-state", "moving");            
         }
-)}
-      
-)});
+            else {
+              $(this).attr("src", $(this).attr("data-still"));
+              $(this).attr("data-state", "still");
+            }
+    
+    });
+
+
+$("#add-car").on("click", function(event) {
+   
+    event.preventDefault();        
+    var car = $("#car-make").val().trim();
+    topics.push(car);
+        
+    console.log(topics);  
+    buttons();
+        
+    });        
+    buttons();
+
+
+});
