@@ -1,7 +1,31 @@
 .item {
 
     display: inline-block;
-    margin: 10px;
-    border: 3px solid #73AD21;  
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid black;  
 }
 
+.btn-primary {
+
+margin-right: 10px;
+margin-top: 10px;
+}
+
+#gif-form {
+
+margin-top: 10px;
+
+}
+
+body {
+
+background-image: url("../images/topography.png");
+
+}
+
+.item {
+
+background-color: white;
+
+}
