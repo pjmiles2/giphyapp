@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 
 var button;
-var topics = ["Ford","Toyota","BMW","Chevrolet","Volvo","Honda"];
+var topics = ["BMW","Ford","Subaru","Land Rover","Toyota","Honda"];
 
  
 
@@ -12,6 +12,7 @@ buttons();
    
 
 function carGifs() {
+    event.preventDefault();        
 
     $("#gifs-view").empty();
     var carType = $(this).attr("car-make");
@@ -44,10 +45,11 @@ function carGifs() {
             carImage.attr("src", still);
             carImage.attr("data-still", still);
             carImage.attr("data-animate", moving);
+            carImage.attr("data-state", "still");
             carImage.addClass("gif");
-
-            gifDiv.append(rated);
+           
             gifDiv.append(carImage);
+            gifDiv.append(rated);
 
             $("#gifs-view").prepend(gifDiv)
           }
@@ -73,7 +75,7 @@ function buttons() {
     for (var i=0; i < topics.length; i++) {
 
 
-    button = $("<buttontype='button' class='btn btn-primary'>");
+    button = $("<button type='button' class='btn btn-primary'>");
     button.addClass("car");
     button.attr("car-make", topics[i]);
     button.text(topics[i]);
@@ -90,8 +92,9 @@ function buttons() {
   
 
 function moveGifs() {
-           
-  //  var state = $(this).attr("data-state");
+    event.preventDefault();        
+
+  var state = $(this).attr("data-state");
   
     var state = $(this).attr("data-state");
         if (state === "still") {

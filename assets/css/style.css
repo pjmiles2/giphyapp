@@ -10,6 +10,9 @@
 
 margin-right: 10px;
 margin-top: 10px;
+font-family: 'Montserrat', sans-serif;
+
+
 }
 
 #gif-form {
@@ -20,12 +23,52 @@ margin-top: 10px;
 
 body {
 
-background-image: url("../images/topography.png");
+background-image: url("../images/background.png");
 
 }
 
 .item {
 
 background-color: white;
+font-family: 'Montserrat', sans-serif;
+
+
+}
+
+h1 {
+
+    font-family: 'Bungee Inline', cursive;
+    font-size: 40pt;
+    color: red;
+
+
+}
+
+h3 {
+
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+h4 {
+
+
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+#car-make {
+
+    font-family: 'Montserrat', sans-serif;
+
+
+
+}
+
+#add-car {
+
+    font-family: 'Montserrat', sans-serif;
+
+
 
 }
